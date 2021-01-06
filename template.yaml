@@ -97,9 +97,7 @@ Resources:
         - AttributeName: city
           AttributeType: S
         - AttributeName: date
-          AttributeType: S
-        - AttributeName: reason
-          AttributeType: S            
+          AttributeType: S        
       KeySchema:
         - AttributeName: country
           KeyType: HASH
