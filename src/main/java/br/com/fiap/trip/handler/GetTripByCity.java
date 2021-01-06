@@ -23,7 +23,7 @@ public class GetTripByCity implements RequestHandler<HandlerRequest, HandlerResp
 				.log("Searching trips for city" + city);
 		final List<Trip> trips = this.dao.findByCity(city);
 
-		if (city == null || city.isEmpty()) {
+		if (trips == null || trips.isEmpty()) {
 			return HandlerResponse.builder().setStatusCode(404).build();
 		}
 

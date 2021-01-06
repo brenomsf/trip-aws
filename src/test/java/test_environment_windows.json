@@ -1,0 +1,18 @@
+{
+	"CreateTripFunction": {
+		"ENDPOINT_OVERRIDE": "http://docker.for.windows.localhost:8000",
+		"TABLE_NAME": "trip"
+	},
+	"GetTripByCityFunction": {
+		"ENDPOINT_OVERRIDE": "http://docker.for.windows.localhost:8000",
+		"TABLE_NAME": "trip"
+	},
+	"GetTripByCountryFunction": {
+		"ENDPOINT_OVERRIDE": "http://docker.for.windows.localhost:8000",
+		"TABLE_NAME": "trip"
+	},
+	"GetTripByPeriodFunction": {
+		"ENDPOINT_OVERRIDE": "http://docker.for.windows.localhost:8000",
+		"TABLE_NAME": "trip"
+	}
+}

@@ -1,0 +1,92 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'trip
+
+  Rest API to manage a Data Lake of trips
+
+  '
+Globals:
+  Function:
+    MemorySize: 512
+    Timeout: 20
+Outputs:
+  CreateTripFunction:
+    Description: CreateTrip Lambda Function ARN
+    Value:
+      Fn::GetAtt:
+      - CreateTripFunction
+      - Arn
+  GetTripByCityFunction:
+    Description: GetTripByCity Lambda Function ARN
+    Value:
+      Fn::GetAtt:
+      - GetTripByCityFunction
+      - Arn
+  GetTripByCountryFunction:
+    Description: GetTripByCountry Lambda Function ARN
+    Value:
+      Fn::GetAtt:
+      - GetTripByCityFunction
+      - Arn
+  GetTripByPeriodFunction:
+    Description: GetTripByPeriod Lambda Function ARN
+    Value:
+      Fn::GetAtt:
+      - GetTripByPeriodFunction
+      - Arn
+Resources:
+  CreateTripFunction:
+    Properties:
+      CodeUri: s3://aws-sam-fiap-deployt/896a140ec24d1c84f917b82d6bdddd3f
+      Events:
+        CreateTripRecord:
+          Properties:
+            Method: post
+            Path: /trips
+          Type: Api
+      Handler: br.com.iwe.handler.CreateTrip::handleRequest
+      Runtime: java8
+    Type: AWS::Serverless::Function
+  GetTripByCityFunction:
+    Properties:
+      CodeUri: s3://aws-sam-fiap-deployt/896a140ec24d1c84f917b82d6bdddd3f
+      Events:
+        GetTripByCity:
+          Properties:
+            Method: get
+            Path: /trips
+            RequestParameters:
+            - method.request.querystring.city
+          Type: Api
+      Handler: br.com.iwe.handler.GetTripByCity::handleRequest
+      Runtime: java8
+    Type: AWS::Serverless::Function
+  GetTripByCountryFunction:
+    Properties:
+      CodeUri: s3://aws-sam-fiap-deployt/896a140ec24d1c84f917b82d6bdddd3f
+      Events:
+        GetTripByCountry:
+          Properties:
+            Method: get
+            Path: /trips
+            RequestParameters:
+            - method.request.querystring.country
+          Type: Api
+      Handler: br.com.iwe.handler.GetTripByCountryFunction::handleRequest
+      Runtime: java8
+    Type: AWS::Serverless::Function
+  GetTripByPeriodFunction:
+    Properties:
+      CodeUri: s3://aws-sam-fiap-deployt/896a140ec24d1c84f917b82d6bdddd3f
+      Events:
+        GetTripByPeriod:
+          Properties:
+            Method: get
+            Path: /trips
+            RequestParameters:
+            - method.request.querystring.starts
+            - method.request.querystring.ends
+          Type: Api
+      Handler: br.com.iwe.handler.GetTripByPeriodFunction::handleRequest
+      Runtime: java8
+    Type: AWS::Serverless::Function
+Transform: AWS::Serverless-2016-10-31
