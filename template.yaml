@@ -1,13 +1,13 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: >
-    trip
+    trip-aws
 
     Rest API to manage a Data Lake of trips
 
 Globals:
     Function:
-        Timeout: 20
+        Timeout: 200
         MemorySize: 512
         Environment:
           Variables:
@@ -20,7 +20,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
      CodeUri: target/trip-0.0.1-SNAPSHOT-jar-with-dependencies.jar
-     Handler: br.com.iwe.handler.CreateTripFunction::handleRequest
+     Handler: br.com.fiap.trip.handler.CreateTrip::handleRequest
      Runtime: java8
      Policies:
        - DynamoDBCrudPolicy:
@@ -36,7 +36,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
      CodeUri: target/trip-0.0.1-SNAPSHOT-jar-with-dependencies.jar
-     Handler: br.com.iwe.handler.GetTripByCity::handleRequest
+     Handler: br.com.fiap.trip.handler.GetTripByCity::handleRequest
      Runtime: java8
      Policies:
        - DynamoDBCrudPolicy:
@@ -54,7 +54,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
      CodeUri: target/trip-0.0.1-SNAPSHOT-jar-with-dependencies.jar
-     Handler: br.com.iwe.handler.GetTripByCountry::handleRequest
+     Handler: br.com.fiap.trip.handler.GetTripByCountry::handleRequest
      Runtime: java8
      Policies:
        - DynamoDBCrudPolicy:
@@ -72,7 +72,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
      CodeUri: target/trip-0.0.1-SNAPSHOT-jar-with-dependencies.jar
-     Handler: br.com.iwe.handler.GetTripByPeriod::handleRequest
+     Handler: br.com.fiap.trip.handler.GetTripByPeriod::handleRequest
      Runtime: java8
      Policies:
        - DynamoDBCrudPolicy:
@@ -81,17 +81,19 @@ Resources:
        GetTripByPeriodFunction:
          Type: Api
          Properties:
-           Path: /trips
+           Path: /trips/findByPeriod
            Method: get
            RequestParameters:
             - method.request.querystring.starts
             - method.request.querystring.ends
               
-  StudyTable:
+  TripTable:
     Type: AWS::DynamoDB::Table
     Properties:
       TableName: trip
       AttributeDefinitions:
+        - AttributeName: reason
+          AttributeType: S
         - AttributeName: country
           AttributeType: S
         - AttributeName: city
@@ -99,14 +101,22 @@ Resources:
         - AttributeName: date
           AttributeType: S        
       KeySchema:
-        - AttributeName: country
+        - AttributeName: reason
           KeyType: HASH
         - AttributeName: date
           KeyType: RANGE
       LocalSecondaryIndexes: 
+        - IndexName: countyIndex
+          KeySchema: 
+            - AttributeName: reason
+              KeyType: HASH
+            - AttributeName: country
+              KeyType: RANGE
+          Projection:
+             ProjectionType: ALL 
         - IndexName: cityIndex
           KeySchema: 
-            - AttributeName: country
+            - AttributeName: reason
               KeyType: HASH
             - AttributeName: city
               KeyType: RANGE

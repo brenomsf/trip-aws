@@ -1,27 +1,36 @@
 package br.com.fiap.trip.model;
 
-import java.util.Date;
-
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBIndexRangeKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 
 @DynamoDBTable(tableName = "trip")
 public class Trip {
 
-	@DynamoDBHashKey(attributeName = "country")
+	@DynamoDBIndexRangeKey(attributeName = "country", localSecondaryIndexName = "countryIndex")
 	private String country;
 
-	@DynamoDBHashKey(attributeName = "city")
+	@DynamoDBIndexRangeKey(attributeName = "city", localSecondaryIndexName = "cityIndex")
 	private String city;
 	
 	@DynamoDBRangeKey(attributeName = "date")
-	private Date date;
+	private String date;
 	
-	@DynamoDBAttribute(attributeName = "reason")
+	@DynamoDBHashKey(attributeName = "reason")
 	private String reason;
 	
+	public Trip(String country, String city, String date, String reason) {
+		super();
+		this.country = country;
+		this.city = city;
+		this.date = date;
+		this.reason = reason;
+	}
+	
+	public Trip() {
+		super();
+	}
 	
 	public String getCountry() {
 		return country;
@@ -35,10 +44,10 @@ public class Trip {
 	public void setCity(String city) {
 		this.city = city;
 	}
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 	public String getReason() {
