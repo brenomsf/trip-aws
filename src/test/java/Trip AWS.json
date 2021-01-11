@@ -1,0 +1,142 @@
+{
+	"info": {
+		"_postman_id": "f4c5a9b0-28f8-4f93-a0b4-69ea6e1e7015",
+		"name": "Trip AWS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "createTripRecord",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"reason\": \"Viagem Trabalho\",\n    \"country\": \"Brasil\",\n    \"city\": \"Rio de Janeiro\",\n    \"date\": \"2021-01-08T19:40:00Z\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/trips",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"trips"
+					]
+				},
+				"description": "Make this request to create a new trip."
+			},
+			"response": []
+		},
+		{
+			"name": "findByPeriod",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/trips/findByPeriod?starts=2020-01-01&ends=2021-01-09",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"trips",
+						"findByPeriod"
+					],
+					"query": [
+						{
+							"key": "starts",
+							"value": "2020-01-01"
+						},
+						{
+							"key": "ends",
+							"value": "2021-01-09"
+						}
+					]
+				},
+				"description": "Find trip by period date range."
+			},
+			"response": []
+		},
+		{
+			"name": "findByCountry",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/trips/findByCountry?country=Brasil",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"trips",
+						"findByCountry"
+					],
+					"query": [
+						{
+							"key": "country",
+							"value": "Brasil"
+						}
+					]
+				},
+				"description": "Find a treip by country."
+			},
+			"response": []
+		},
+		{
+			"name": "findByCity",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/trips/USA/findByCity?city=New York",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"trips",
+						"USA",
+						"findByCity"
+					],
+					"query": [
+						{
+							"key": "city",
+							"value": "New York"
+						}
+					]
+				},
+				"description": "Find a trip by City using the country like filter."
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "http://localhost:3000"
+		}
+	]
+}
