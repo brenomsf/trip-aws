@@ -45,7 +45,7 @@ Resources:
        GetTripByCity:
          Type: Api
          Properties:
-           Path: /trips
+           Path: /trips/{country}/findByCity
            Method: get
            RequestParameters:
               - method.request.querystring.city
@@ -63,7 +63,7 @@ Resources:
        GetTripByCountry:
          Type: Api
          Properties:
-           Path: /trips
+           Path: /trips/findByCountry
            Method: get
            RequestParameters:
             - method.request.querystring.country
@@ -92,36 +92,11 @@ Resources:
     Properties:
       TableName: trip
       AttributeDefinitions:
-        - AttributeName: reason
+        - AttributeName: id
           AttributeType: S
-        - AttributeName: country
-          AttributeType: S
-        - AttributeName: city
-          AttributeType: S
-        - AttributeName: date
-          AttributeType: S        
       KeySchema:
-        - AttributeName: reason
-          KeyType: HASH
-        - AttributeName: date
-          KeyType: RANGE
-      LocalSecondaryIndexes: 
-        - IndexName: countyIndex
-          KeySchema: 
-            - AttributeName: reason
-              KeyType: HASH
-            - AttributeName: country
-              KeyType: RANGE
-          Projection:
-             ProjectionType: ALL 
-        - IndexName: cityIndex
-          KeySchema: 
-            - AttributeName: reason
-              KeyType: HASH
-            - AttributeName: city
-              KeyType: RANGE
-          Projection:
-             ProjectionType: ALL      
+        - AttributeName: id
+          KeyType: HASH    
       BillingMode: PAY_PER_REQUEST              
 
 Outputs:
