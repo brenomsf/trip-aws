@@ -44,3 +44,19 @@ Copie e cole o conteúdo do arquivo /srv/test/java/database.txt no prompt de com
 Se todos os comando acima executarem com sucesso, você pode acessar a API do seu endpoint localmente. Por exemplo, consultar um Trip. No endpoint abaixo:
 `GET http://localhost:3000/trips/findByCountry?country=Brasil`.
 Se ele retornar um código 404. Agora você pode explorar todos os endpoints, para isso, utilize o arquivo src/test/java/Trip AWS.json para importar a Coleção da API Rest no Postman.
+
+### Epacotamento e Deploy
+1- Rode o comando abaixo para empacotar o código da lambda no backet do S3:
+   ```
+     sam package \
+         --template-file template.yaml \
+         --output-template-file packaged.yaml \
+         --s3-bucket $BUCKET_NAME
+   ```
+2- O proximo comando irá criar uma stack na aws e efetuará o deploy
+ ```
+     sam deploy \
+        --template-file packaged.yaml \
+        --stack-name study-datalake \
+        --capabilities CAPABILITY_IAM
+ ```
