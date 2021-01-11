@@ -36,8 +36,8 @@ Copie e cole o conteúdo do arquivo /srv/test/java/database.txt no prompt de com
 
 
 3. Iniciar a API SAM local.
- - On a Mac: `sam local start-api --env-vars src/test/resources/test_environment_mac.json`
- - On Windows: `sam local start-api --env-vars src/test/resources/test_environment_windows.json`
+ - Em um Mac: `sam local start-api --env-vars src/test/resources/test_environment_mac.json`
+ - Em um Windows: `sam local start-api --env-vars src/test/resources/test_environment_windows.json`
  
  OBS:  Se você já tem um container localmente (no seu caso o java java8), você pode utilizar a opção --skip-pull-image para remover o download.
 
